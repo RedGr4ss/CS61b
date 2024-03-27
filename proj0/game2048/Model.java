@@ -145,7 +145,6 @@ public class Model extends Observable {
                             if (t2 != null) {
                                     board.move(c, r, t2);
                                     changed = true;
-                                    r = r2;
                                     break;
                             }
                         }
