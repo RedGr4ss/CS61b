@@ -113,22 +113,47 @@ public class Model extends Observable {
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
-        if(side==Side.NORTH){
-            for(int c=0;c<board.size();c++){
-                int first=0,last=0;
-                for(int r=board.size()-1;r>=0;r--){
-                    Tile t=board.tile(c,r);
-                    if(first==0&&t==null){
-                        first=r;
+        board.setViewingPerspective(side);
+        if(side==Side.NORTH) {
+            for (int c = 0; c < board.size(); c++) {
+                for (int r = board.size() - 1; r >= 0; r--) {
+                    Tile t1 = board.tile(c, r);
+                    if (t1 != null) {
+                        for (int r2 = r - 1; r2 >= 0; r2--) {
+                            Tile t2 = board.tile(c, r2);
+                            if (t2 != null) {
+                                if (t1.value() == t2.value()) {
+                                    board.move(c, r, t2);
+                                    changed = true;
+                                    r = r2;
+                                    score += 2 * t2.value();
+                                    break;
+                                }else{
+                                    break;
+                                }
+                            }
+                        }
                     }
-                    if(first!=0&&last==0&&t!=null){
-                        board.move(c,first,t);
-                        changed=true;
+                }
+            }
+            for (int c = 0; c < board.size(); c++) {
+                for (int r = board.size() - 1; r >= 0; r--) {
+                    Tile t1 = board.tile(c, r);
+                    if (t1 == null) {
+                        for (int r2 = r - 1; r2 >= 0; r2--) {
+                            Tile t2 = board.tile(c, r2);
+                            if (t2 != null) {
+                                    board.move(c, r, t2);
+                                    changed = true;
+                                    r = r2;
+                                    break;
+                            }
+                        }
                     }
                 }
             }
         }
-
+        board.setViewingPerspective(Side.NORTH);
         checkGameOver();
         if (changed) {
             setChanged();
