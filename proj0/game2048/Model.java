@@ -130,21 +130,13 @@ public class Model extends Observable {
                             } else {
                                 break;
                             }
-                        }else{
-                            continue;
                         }
                     }
-                }
-            }
-        }
-        for (int c = 0; c < board.size(); c++) {
-            for (int r = board.size() - 1; r >= 0; r--) {
-                Tile t1 = board.tile(c, r);
-                if (t1 == null) {
-                    for (int r2 = r - 1; r2 >= 0; r2--) {
-                        Tile t2 = board.tile(c, r2);
-                        if (t2 != null) {
-                            board.move(c, r, t2);
+                }else{
+                    for (int r3 = r - 1; r3 >= 0; r3--) {
+                        Tile t3 = board.tile(c, r3);
+                        if (t3 != null) {
+                            board.move(c, r, t3);
                             changed = true;
                             break;
                         }
