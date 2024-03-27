@@ -130,6 +130,8 @@ public class Model extends Observable {
                             } else {
                                 break;
                             }
+                        }else{
+                            continue;
                         }
                     }
                 }
