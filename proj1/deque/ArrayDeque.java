@@ -14,7 +14,10 @@ public class ArrayDeque<T>{
     public void resize(int cap){
         T[] ar=(T[]) new Object[cap];
         //以四分之一为一块，放在中间两块
-        System.arraycopy(Ar,nextf+1,ar,cap/4,size);
+        for(int i=0;i<size;i++){
+            int idx=arrindex(i);
+            ar[cap/4+i]=Ar[idx];
+        }
         Ar=ar;
         nextf=cap/4-1;
         nextb=cap/4+size+1;
@@ -26,7 +29,7 @@ public class ArrayDeque<T>{
     }
     public void addFirst(T item){
         if(size-2==Ar.length){
-            resize(Ar.length*2);
+            resize((int) Ar.length*2);
         }
         Ar[nextf]=item;
         if(nextf==0){
@@ -38,7 +41,7 @@ public class ArrayDeque<T>{
     }
     public void addLast(T item){
         if(size-2==Ar.length){
-            resize(Ar.length*2);
+            resize((int)Ar.length*2);
         }
         Ar[nextb]=item;
         if(nextb==Ar.length-1){
