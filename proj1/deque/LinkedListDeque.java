@@ -85,6 +85,18 @@ public class LinkedListDeque <T>{
             return t.item;
         }
     }
+    public T getRecursive(int index){
+        if(index<0||index>size){
+            return null;
+        }
+        return getRecursivehelp(sentail,index);
+    }
+    public T getRecursivehelp(Tnode t,int index){
+        if (index == 0) {
+            return t.item;
+        }
+        return getRecursivehelp(t.next, index - 1);
+    }
     public static void main(String[] args){
         LinkedListDeque<String> L1 = new LinkedListDeque<String>("to");
         L1.addFirst("love");
@@ -97,6 +109,6 @@ public class LinkedListDeque <T>{
         L1.printDeque();
         L1.removeFirst();
         L1.printDeque();
-        System.out.println(L1.get(100));
+        System.out.println(L1.getRecursive(1));
     }
 }
