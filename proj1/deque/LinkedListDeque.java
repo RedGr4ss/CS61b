@@ -36,8 +36,7 @@ public class LinkedListDeque <T>{
         sentail.pre=sentail.pre.next;
     }
     public boolean isEmpty(){
-        if(sentail.next==sentail)return true;
-        else return false;
+        return sentail.next == sentail;
     }
     public int size(){
         return size;
@@ -50,26 +49,34 @@ public class LinkedListDeque <T>{
         }
     }
     public T removeFirst(){
-        size-=1;
         T t;
         if(sentail.next==sentail){
             return null;
         }else {
-            t=sentail.next.item;
-            sentail.next=sentail.next.next;
-            sentail.next.next.pre=sentail;
+            size-=1;
+            Tnode rmNode=sentail.next;
+            t=rmNode.item;
+            sentail.next=rmNode.next;
+            rmNode.next.pre=sentail;
+            rmNode.item = null;
+            rmNode.next = null;
+            rmNode.pre = null;
             return t;
         }
     }
     public T removeLast(){
-        size-=1;
         T t;
         if(sentail.next==sentail){
             return null;
         }else {
-            t=sentail.pre.item;
-            sentail.pre=sentail.pre.pre;
-            sentail.pre.pre.next=sentail;
+            size-=1;
+            Tnode rmNode=sentail.pre;
+            t=rmNode.item;
+            sentail.pre=rmNode.pre;
+            rmNode.pre.next=sentail;
+            rmNode.item = null;
+            rmNode.next = null;
+            rmNode.pre = null;
             return t;
         }
     }
