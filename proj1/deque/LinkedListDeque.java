@@ -97,18 +97,4 @@ public class LinkedListDeque <T>{
         }
         return getRecursivehelp(t.next, index - 1);
     }
-    public static void main(String[] args){
-        LinkedListDeque<String> L1 = new LinkedListDeque<String>("to");
-        L1.addFirst("love");
-        L1.addLast("you");
-        if(L1.isEmpty()){
-            System.out.println("yes");
-        }else {
-            System.out.println("no");
-        }
-        L1.printDeque();
-        L1.removeFirst();
-        L1.printDeque();
-        System.out.println(L1.getRecursive(1));
-    }
 }
