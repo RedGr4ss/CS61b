@@ -115,29 +115,25 @@ public class Model extends Observable {
         // changed local variable to true.
         board.setViewingPerspective(side);
         for (int c = 0; c < board.size(); c++) {
-            for (int r = board.size() - 1; r >= 0; r--) {
+            int []x=new int[board.size()];
+            for (int r = board.size() - 2; r >= 0; r--) {
                 Tile t1 = board.tile(c, r);
-                if (t1 != null) {
-                    for (int r2 = r - 1; r2 >= 0; r2--) {
-                        Tile t2 = board.tile(c, r2);
-                        if (t2 != null) {
-                            if (t1.value() == t2.value()) {
-                                board.move(c, r, t2);
-                                changed = true;
-                                r = r2;
-                                score += 2 * t2.value();
-                                break;
-                            } else {
-                                break;
-                            }
+                int top=board.size()-1;
+                if(t1!=null){
+                    int value=t1.value();
+                    x[r]=value;
+                    for(int res=top;res>=r;res--){
+                        if(x[res]==0){
+                            board.move(c,res,t1);
+                            changed=true;
+                            top=r;
+                            break;
                         }
                     }
-                }else{
-                    for (int r3 = r - 1; r3 >= 0; r3--) {
-                        Tile t3 = board.tile(c, r3);
-                        if (t3 != null) {
-                            board.move(c, r, t3);
-                            changed = true;
+                    for(int res=r;res<=top;res++){
+                        if(x[res]==value){
+                            board.move(c,res,t1);
+                            changed=true;
                             break;
                         }
                     }
