@@ -28,7 +28,7 @@ public class ArrayDeque<T>{
         }return nextf+1+x;
     }
     public void addFirst(T item){
-        if(size-2==Ar.length){
+        if(size==Ar.length-2){
             resize((int) Ar.length*2);
         }
         Ar[nextf]=item;
@@ -40,7 +40,7 @@ public class ArrayDeque<T>{
         size++;
     }
     public void addLast(T item){
-        if(size-2==Ar.length){
+        if(size==Ar.length-2){
             resize((int)Ar.length*2);
         }
         Ar[nextb]=item;
@@ -62,36 +62,39 @@ public class ArrayDeque<T>{
             int idx=arrindex(i);
             System.out.print(Ar[idx]+" ");
         }
-        System.out.println();
     }
     public T removeFirst(){
         T t;
         if(isEmpty()){
             return null;
-        }else {
+        }
+        if ((size < Ar.length / 4) && (size > 8)) {
+            resize(Ar.length / 2);
+        }
             nextf++;
             t=Ar[nextf];
             Ar[nextf]=null;
             size-=1;
             return t;
-        }
+
     }
     public T removeLast(){
         T t;
         if(isEmpty()){
             return null;
-        }else {
+        }
+        if ((size < Ar.length / 4) && (size > 8)) {
+            resize(Ar.length / 2);
+        }
             nextb--;
             t=Ar[nextb];
             Ar[nextb]=null;
             size-=1;
             return t;
-        }
+
     }
     public T get(int index){
         int idx=arrindex(index);
         return Ar[idx];
-    }
-    public static void main(String[] args){
     }
 }
