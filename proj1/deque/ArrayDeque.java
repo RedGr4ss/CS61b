@@ -6,7 +6,7 @@ public class ArrayDeque<T>{
     int nextf;
     int nextb;
     public ArrayDeque(){
-        T[] Ar=(T[]) new Object[8];
+        Ar=(T[]) new Object[8];
         nextf=3;
         nextb=4;
         size=0;
@@ -97,4 +97,5 @@ public class ArrayDeque<T>{
         int idx=arrindex(index);
         return Ar[idx];
     }
+
 }
