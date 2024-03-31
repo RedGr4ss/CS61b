@@ -20,7 +20,7 @@ public class ArrayDeque<T>{
         }
         Ar=ar;
         nextf=cap/4-1;
-        nextb=cap/4+size+1;
+        nextb=cap/4+size;
     }
     public int arrindex(int x){
         if(nextf+1+x>=Ar.length){
@@ -52,7 +52,7 @@ public class ArrayDeque<T>{
         size++;
     }
     public boolean isEmpty(){
-        return nextb-nextf==1;
+        return size==0;
     }
     public int size(){
         return size;
@@ -71,11 +71,15 @@ public class ArrayDeque<T>{
         if ((size < Ar.length / 4) && (size > 8)) {
             resize(Ar.length / 2);
         }
+        if(nextf!=Ar.length-1) {
             nextf++;
-            t=Ar[nextf];
-            Ar[nextf]=null;
-            size-=1;
-            return t;
+        }else {
+            nextf=0;
+        }
+        t=Ar[nextf];
+        Ar[nextf]=null;
+        size-=1;
+        return t;
 
     }
     public T removeLast(){
@@ -84,13 +88,17 @@ public class ArrayDeque<T>{
             return null;
         }
         if ((size < Ar.length / 4) && (size > 8)) {
-            resize(Ar.length / 2);
+            resize((int) Ar.length / 2);
         }
+        if(nextb!=0) {
             nextb--;
-            t=Ar[nextb];
-            Ar[nextb]=null;
-            size-=1;
-            return t;
+        }else {
+            nextb=Ar.length-1;
+        }
+        t=Ar[nextb];
+        Ar[nextb]=null;
+        size-=1;
+        return t;
 
     }
     public T get(int index){
