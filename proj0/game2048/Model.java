@@ -180,8 +180,8 @@ public class Model extends Observable {
      * given a Tile object t, we get its value with t.value().
      */
     public static boolean maxTileExists(Board b) {
-        for(int i=0;i<4;i++){
-            for(int j=0;j<4;j++){
+        for(int i=0;i< b.size();i++){
+            for(int j=0;j<b.size();j++){
                 if(b.tile(i,j)==null){
                     continue;
                 } else if (b.tile(i,j).value()==MAX_PIECE) {

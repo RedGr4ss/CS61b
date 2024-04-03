@@ -1,6 +1,6 @@
 package deque;
 
-public class ArrayDeque<T>{
+public class ArrayDeque<T> implements Deque<T>{
     int size;
     T[] Ar;
     int nextf;
