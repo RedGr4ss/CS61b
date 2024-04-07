@@ -94,7 +94,10 @@ public class LinkedListDeque<T> implements Deque<T> ,Iterable<T>{
         if (index < 0 || index > size) {
             return null;
         }
-        return getRecursivehelp(sentail, index);
+        if(size==0){
+            return null;
+        }
+        return getRecursivehelp(sentail.next, index);
     }
 
     private T getRecursivehelp(Tnode t, int index) {

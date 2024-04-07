@@ -15,15 +15,6 @@ public class ArrayDeque<T> implements Deque<T> ,Iterable<T>{
         size = 0;
     }
 
-    public static void main(String[] args) {
-        ArrayDeque<Integer> ar = new ArrayDeque<>();
-        ar.addFirst(1);
-        ar.addFirst(2);
-        Iterator<Integer> ser = ar.iterator();
-        while (ser.hasNext()) {
-            System.out.println(ser.next());
-        }
-    }
 
     private void resize(int cap) {
         T[] ar = (T[]) new Object[cap];

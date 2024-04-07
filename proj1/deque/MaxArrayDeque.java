@@ -10,26 +10,6 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> {
         Comp = t;
     }
 
-    public static void main(String[] args) {
-        Comparator<Integer> Comp = new Comparator<>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
-                if (o1 > o2) {
-                    return 1;
-                } else if (o1 < o2) {
-                    return -1;
-                } else {
-                    return 0;
-                }
-            }
-        };
-        MaxArrayDeque<Integer> Alist = new MaxArrayDeque<>(Comp);
-        for (int i = 0; i < 500; i++) {
-            Alist.addFirst(i);
-        }
-        System.out.println(Alist.max());
-    }
-
     public T max() {
         if (isEmpty()) {
             return null;
