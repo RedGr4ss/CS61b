@@ -2,11 +2,11 @@ package deque;
 
 import java.util.Iterator;
 
-public class ArrayDeque<T> implements Deque<T> {
-    int size;
-    T[] ar;
-    int nextf;
-    int nextb;
+public class ArrayDeque<T> implements Deque<T> ,Iterable<T>{
+    private int size;
+    private T[] ar;
+    private int nextf;
+    private int nextb;
 
     public ArrayDeque() {
         ar = (T[]) new Object[8];
@@ -25,7 +25,7 @@ public class ArrayDeque<T> implements Deque<T> {
         }
     }
 
-    public void resize(int cap) {
+    private void resize(int cap) {
         T[] ar = (T[]) new Object[cap];
         //以四分之一为一块，放在中间两块
         for (int i = 0; i < size; i++) {
@@ -37,7 +37,7 @@ public class ArrayDeque<T> implements Deque<T> {
         nextb = cap / 4 + size;
     }
 
-    public int arrindex(int x) {
+    private int arrindex(int x) {
         if (nextf + 1 + x >= ar.length) {
             return nextf + 1 + x - ar.length;
         }
@@ -134,11 +134,8 @@ public class ArrayDeque<T> implements Deque<T> {
         if (!(o instanceof Deque)) {
             return false;
         }
-        ArrayDeque<T> o1 = (ArrayDeque<T>) o;
+        Deque<T> o1 = (Deque<T>) o;
         if (o1.size() != this.size()) {
-            return false;
-        }
-        if (o1.size != this.size) {
             return false;
         }
         for (int i = 0; i < size; i++) {
@@ -149,7 +146,7 @@ public class ArrayDeque<T> implements Deque<T> {
         return true;
     }
 
-    public class ArrayDequeIterator implements Iterator<T> {
+    private class ArrayDequeIterator implements Iterator<T> {
         public int wize;
 
         public ArrayDequeIterator() {

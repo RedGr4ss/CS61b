@@ -2,16 +2,10 @@ package deque;
 
 import java.util.Iterator;
 
-public class LinkedListDeque<T> implements Deque<T> {
-    Tnode sentail;
-    int size;
+public class LinkedListDeque<T> implements Deque<T> ,Iterable<T>{
+    private Tnode sentail;
+    private int size;
 
-    public LinkedListDeque(T t) {
-        sentail = new Tnode(null, null, null);
-        sentail.next = new Tnode(t, sentail, sentail);
-        sentail.pre = sentail.next;
-        size += 1;
-    }
 
     public LinkedListDeque() {
         sentail = new Tnode(null, null, null);
@@ -81,7 +75,10 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
 
     public T get(int index) {
-        Tnode t = sentail;
+        if(size==0){
+            return null;
+        }
+        Tnode t = sentail.next;
         if (index > size) {
             return null;
         } else {
@@ -100,7 +97,7 @@ public class LinkedListDeque<T> implements Deque<T> {
         return getRecursivehelp(sentail, index);
     }
 
-    public T getRecursivehelp(Tnode t, int index) {
+    private T getRecursivehelp(Tnode t, int index) {
         if (index == 0) {
             return t.item;
         }
@@ -115,11 +112,8 @@ public class LinkedListDeque<T> implements Deque<T> {
         if (!(o instanceof Deque)) {
             return false;
         }
-        LinkedListDeque<T> o1 = (LinkedListDeque<T>) o;
+        Deque<T> o1 = (Deque<T>) o;
         if (o1.size() != this.size()) {
-            return false;
-        }
-        if (o1.size != this.size) {
             return false;
         }
         for (int i = 0; i < size; i++) {
@@ -130,7 +124,7 @@ public class LinkedListDeque<T> implements Deque<T> {
         return true;
     }
 
-    public class Tnode {
+    private class Tnode {
         public T item;
         public Tnode pre;
         public Tnode next;
@@ -142,7 +136,7 @@ public class LinkedListDeque<T> implements Deque<T> {
         }
     }
 
-    public class LinkedListDequeIterator implements Iterator<T> {
+    private class LinkedListDequeIterator implements Iterator<T> {
         private int wize;
 
         public LinkedListDequeIterator() {
