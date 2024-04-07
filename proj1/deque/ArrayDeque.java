@@ -1,6 +1,8 @@
 package deque;
 
-public class ArrayDeque<T>implements Deque<T> {
+import java.util.Iterator;
+
+public class ArrayDeque<T> implements Deque<T> {
     int size;
     T[] ar;
     int nextf;
@@ -11,6 +13,16 @@ public class ArrayDeque<T>implements Deque<T> {
         nextf = 3;
         nextb = 4;
         size = 0;
+    }
+
+    public static void main(String[] args) {
+        ArrayDeque<Integer> ar = new ArrayDeque<>();
+        ar.addFirst(1);
+        ar.addFirst(2);
+        Iterator<Integer> ser = ar.iterator();
+        while (ser.hasNext()) {
+            System.out.println(ser.next());
+        }
     }
 
     public void resize(int cap) {
@@ -58,8 +70,8 @@ public class ArrayDeque<T>implements Deque<T> {
         size++;
     }
 
-    public boolean isEmpty() {
-        return size == 0;
+    public Iterator<T> iterator() {
+        return new ArrayDequeIterator();
     }
 
     public int size() {
@@ -118,4 +130,42 @@ public class ArrayDeque<T>implements Deque<T> {
         return ar[idx];
     }
 
+    public boolean equals(Object o) {
+        if (!(o instanceof Deque)) {
+            return false;
+        }
+        ArrayDeque<T> o1 = (ArrayDeque<T>) o;
+        if (o1.size() != this.size()) {
+            return false;
+        }
+        if (o1.size != this.size) {
+            return false;
+        }
+        for (int i = 0; i < size; i++) {
+            if (!this.get(i).equals(o1.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public class ArrayDequeIterator implements Iterator<T> {
+        public int wize;
+
+        public ArrayDequeIterator() {
+            wize = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return wize < size;
+        }
+
+        @Override
+        public T next() {
+            T returnItem = get(wize);
+            wize += 1;
+            return returnItem;
+        }
+    }
 }
