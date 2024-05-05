@@ -12,7 +12,7 @@ import static capers.Utils.*;
 public class Dog implements Serializable{
 
     /** Folder that dogs live in. */
-    static final File DOG_FOLDER = Utils.join(CWD,"capers", "dogs");
+    static final File DOG_FOLDER = Utils.join(".capers", "dogs");
 
     /** Age of dog. */
     private int age;
@@ -59,10 +59,7 @@ public class Dog implements Serializable{
      */
     public void saveDog() {
         File dogname = Utils.join(DOG_FOLDER,name);
-        if(!dogname.exists()){
-            Dog dog=new Dog(name,breed,age);
-            Utils.writeObject(dogname,this);
-        }
+        Utils.writeObject(dogname,this);
     }
 
     @Override

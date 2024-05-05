@@ -19,7 +19,7 @@ public class CapersRepository {
     static final File CWD = new File(System.getProperty("user.dir"));
 
     /** Main metadata folder. */
-    static final File CAPERS_FOLDER = Utils.join(CWD,"capers");
+    static final File CAPERS_FOLDER = Utils.join(CWD,".capers");
                                             //      function in Utils
 
     /**
@@ -32,18 +32,8 @@ public class CapersRepository {
      *    - story -- file containing the current story
      */
     public static void setupPersistence() {
-        File D = new File(CAPERS_FOLDER,"dogs");
-        if(!D.exists()){
-            D.mkdir();
-        }
-        File F = new File(CAPERS_FOLDER,"story");
-        if(!F.exists()){
-            try {
-                F.createNewFile();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
+        CAPERS_FOLDER.mkdir();
+        Dog.DOG_FOLDER.mkdir();
     }
 
     /**
@@ -52,14 +42,16 @@ public class CapersRepository {
      * @param text String of the text to be appended to the story
      */
     public static void writeStory(String text) {
-        File ediFile = Utils.join(CAPERS_FOLDER,"story");
-        String existstring=Utils.readContentsAsString(ediFile);
-        if(existstring.isEmpty()) {
-            Utils.writeContents(ediFile, text);
-        }else {
-            Utils.writeContents(ediFile, existstring+"\n"+text);
+        File storyFile = join(CAPERS_FOLDER, "story");
+        String newStoryContent;
+        if (!storyFile.exists()) {
+            newStoryContent = text;
+        } else {
+            String storyContent = readContentsAsString(storyFile);
+            newStoryContent = storyContent + "\n" + text;
         }
-        System.out.println(Utils.readContentsAsString(ediFile));
+        writeContents(storyFile, newStoryContent);
+        System.out.println(newStoryContent);
     }
 
     /**
@@ -82,5 +74,6 @@ public class CapersRepository {
     public static void celebrateBirthday(String name) {
         Dog dog1 = Dog.fromFile(name);
         dog1.haveBirthday();
+        dog1.saveDog();
     }
 }
