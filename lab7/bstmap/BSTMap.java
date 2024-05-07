@@ -1,10 +1,7 @@
 package bstmap;
 
 import java.security.Key;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-import java.util.Set;
+import java.util.*;
 
 public class BSTMap <K extends Comparable,V> implements Map61B<K,V>{
     private class BSTnode{
@@ -28,20 +25,12 @@ public class BSTMap <K extends Comparable,V> implements Map61B<K,V>{
 
     @Override
     public boolean containsKey(K key) {
-        return containsKey(root,key);
-    }
-    private boolean containsKey(BSTnode node,K key) {
-        if(node==null){
+        Set set=keySet();
+        if(set.contains(key)) {
+            return true;
+        } else{
             return false;
         }
-        int cmp= key.compareTo(node.Key);
-        if(cmp<0){
-            return containsKey(node.left,key);
-        }
-        if (cmp>0){
-            return containsKey(node.right,key);
-        }
-        return true;
     }
     @Override
     public V get(K key) {
@@ -106,15 +95,54 @@ public class BSTMap <K extends Comparable,V> implements Map61B<K,V>{
 
     @Override
     public V remove(K key) {
-        throw new UnsupportedOperationException("Remove operation is not supported.");
+        V move = get(key);
+        root=remove(root,key);
+        return move;
     }
-    private V remove(BSTnode node ,K key){
-        throw new UnsupportedOperationException("Remove operation is not supported.");
+    private BSTnode remove(BSTnode node ,K key){
+       int cmp = key.compareTo(node.Key);
+       if(cmp<0){
+           node.left=remove(node.left,key);
+           return node;
+       } else if (cmp>0) {
+           node.right=remove(node.right,key);
+           return node;
+       }else {
+           if (node.left == null && node.right == null) {
+               node = null;
+               return node;
+           } else if (node.left == null && node.right != null) {
+               node = node.right;
+               return node;
+           } else if (node.left != null && node.right == null) {
+               node = node.left;
+               return node;
+           } else {
+               BSTnode rightmin = Min(root.right);
+               node.Key = rightmin.Key;
+               node.Value = rightmin.Value;
+               node.right = remove(node.right, node.Key);
+               return node;
+           }
+       }
+    }
+    private BSTnode Min(BSTnode node){
+        BSTnode temp=node;
+        while(temp.left!=null){
+            temp=temp.left;
+        }
+        return temp;
     }
 
     @Override
     public V remove(K key, V value) {
-        return null;
+        V result=get(key);
+        if(result==value){
+            root=remove(root,key);
+        }else {
+            throw new InputMismatchException();
+        }
+        return result;
     }
 
     @Override
