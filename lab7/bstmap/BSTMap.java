@@ -8,6 +8,7 @@ public class BSTMap <K extends Comparable,V> implements Map61B<K,V>{
         private K Key;
         private V Value;
         private BSTnode left,right;
+        private int size;
         public BSTnode(K key,V value){
             Key=key;
             Value=value;
@@ -19,14 +20,6 @@ public class BSTMap <K extends Comparable,V> implements Map61B<K,V>{
     @Override
     public void clear() {
         root=null;
-    }
-
-
-    public BSTMap(K key,V value){
-        root.Key=key;
-        root.Value=value;
-        root.left=null;
-        root.right=null;
     }
 
     @Override
@@ -57,14 +50,30 @@ public class BSTMap <K extends Comparable,V> implements Map61B<K,V>{
 
     @Override
     public int size() {
-        return 0;
+        return root.size;
     }
 
     @Override
     public void put(K key, V value) {
-        throw new UnsupportedOperationException();
+        if(containsKey(key)){
+            return;
+        }
+         put(root,key,value);
     }
-
+    private void put(BSTnode node,K key, V value){
+        if(node==null){
+            node.Key=key;
+            node.Value=value;
+            node.left=null;
+            node.right=null;
+        }
+        int cmp = key.compareTo(node.Key);
+        if(cmp<0){
+            put(node.left,key,value);
+        }else {
+            put(node.right,key,value);
+        }
+    }
 
     @Override
     public Set keySet() {
