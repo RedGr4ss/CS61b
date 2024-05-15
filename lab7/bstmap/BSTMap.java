@@ -3,7 +3,7 @@ package bstmap;
 
 import java.util.*;
 
-public class BSTMap <K extends Comparable,V> implements Map61B<K,V>{
+public class BSTMap <K extends Comparable<K>,V> implements Map61B<K,V>{
     private node root;
 
     private class node{
@@ -155,7 +155,10 @@ public class BSTMap <K extends Comparable,V> implements Map61B<K,V>{
         }
         return result;
     }
-    public void printInorder(node n){
+    public void printInOrder(){
+        printInorder(root);
+    }
+    private void printInorder(node n){
         if(n.left==null){
             return;
         }
